@@ -1,0 +1,27 @@
+{
+  "name": "familiar-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Antyas/familiar-bot.git"
+  },
+  "author": "Roman Antyaskin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Antyas/familiar-bot/issues"
+  },
+  "homepage": "https://github.com/Antyas/familiar-bot#readme",
+  "dependencies": {
+    "discord.js": "^12.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.1"
+  }
+}
