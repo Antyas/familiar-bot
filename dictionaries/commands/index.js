@@ -1,3 +1,3 @@
 module.exports = new Map([
-  ['к', () => {}],
+  ['к', require('./dice')],
 ]);
