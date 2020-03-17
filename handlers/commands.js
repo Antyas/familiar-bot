@@ -1,5 +1,5 @@
-const dictionary = require('../dictionaries/commands');
-const { getCommand, getArguments } = require('../helpers');
+const commands = require('../dictionaries/commands');
+const { getCommand, getArguments, getErrorText } = require('../helpers');
 
 module.exports = async (m) => {
   try {
@@ -12,10 +12,11 @@ module.exports = async (m) => {
       args: getArguments(m.content),
     };
 
-    const answer = dictionary.get(command)(data);
+    const answer = commands.get(command)(data);
+    m.channel.send(getErrorText());
     m.channel.send(answer);
   } catch (e) {
     console.log(e);
-    m.channel.send('Непонимающе смотрит в ответ');
+    m.channel.send(getErrorText());
   }
 };
