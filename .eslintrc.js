@@ -17,6 +17,7 @@ module.exports = {
   rules: {
     'no-console': 'off',
     'consistent-return': 'off',
-    'global-require': 'off'
+    'global-require': 'off',
+    'class-methods-use-this': 'off'
   },
 };

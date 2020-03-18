@@ -1,5 +1,9 @@
 const Discord = require('discord.js');
-const mainHandler = require('../handlers/main');
+const CommandsController = require('./CommandsController');
+const TalkController = require('./TalkController');
+
+const command = new CommandsController();
+const talk = new TalkController();
 
 module.exports = class extends Discord.Client {
   constructor(botToken) {
@@ -10,6 +14,10 @@ module.exports = class extends Discord.Client {
   start() {
     this.login(this.botToken);
     this.on('ready', () => console.log('Бот запущен'));
-    this.on('message', mainHandler);
+    this.on('message', (m) => {
+      if (m.author.bot) return;
+      // || m.author.id !== '348195205943656459' || m.channel.type !== 'dm'
+      return m.content.startsWith('!') ? command(m) : talk(m);
+    });
   }
 };
