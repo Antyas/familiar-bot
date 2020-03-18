@@ -3,11 +3,12 @@ const commands = require('../dictionaries/commands');
 
 module.exports = class extends Controller {
   getCommand(str) {
-    return str.replace('!', '').toLowerCase().match(/^[А-Яа-яЁё]+/)[0];
+    return str.replace('&', '').toLowerCase().match(/^[А-Яа-яЁё]+/g)[0];
   }
 
   getArguments(str) {
-    str.match(/\(.+\)/)[0].replace(/\(|\)/g, '').split(',');
+    const argLine = str.match(/\(.+\)/);
+    return argLine ? argLine[0].replace(/\(|\)/g, '').split(',') : [];
   }
 
   handle(m) {
@@ -15,9 +16,7 @@ module.exports = class extends Controller {
       const command = this.getCommand(m.content);
 
       const data = {
-        author: m.channel.type === 'dm'
-          ? m.author.username
-          : m.guild.members.cache.get(m.author.id).nickname,
+        author: m.author.id,
         args: this.getArguments(m.content),
       };
 

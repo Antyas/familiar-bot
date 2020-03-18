@@ -14,10 +14,11 @@ module.exports = class extends Discord.Client {
   start() {
     this.login(this.botToken);
     this.on('ready', () => console.log('Бот запущен'));
+
     this.on('message', (m) => {
       if (m.author.bot) return;
       // || m.author.id !== '348195205943656459' || m.channel.type !== 'dm'
-      return m.content.startsWith('!') ? command(m) : talk(m);
+      return m.content.startsWith('&') ? command.handle(m) : talk.handle(m);
     });
   }
 };

@@ -1,4 +1,7 @@
 module.exports = new Map([
   ['к', require('./dice')],
-  ['погладить', require('./pat')],
+  ['лизнуть', require('./lick')],
+  ['агрессия', require('./aggression')],
+  ['голос', require('./voice')],
+  ['погладить', require('./caress')],
 ]);
