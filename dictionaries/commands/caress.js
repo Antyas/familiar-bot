@@ -1,15 +1,12 @@
-const { getRandom } = require('../../helpers');
+const ReplyList = require('../../classes/controllers/ReplyList');
 
-const dictionary = [
+const list = new ReplyList([
   () => '*Довольно урчит*',
   () => '*Дает почесать пузико*',
   () => '*Гладит в ответ щупальцами*',
   () => '*Радостно всхрапнул*',
   () => '*Подставляет ушко*',
   () => '*Довольно перебирает щупальцами*',
-];
+]);
 
-module.exports = () => {
-  const say = dictionary[getRandom(0, dictionary.length - 1)];
-  return say();
-};
+module.exports = () => list.reply();

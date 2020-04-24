@@ -1,7 +1,7 @@
 const Controller = require('./Controller');
 
 module.exports = class extends Controller {
-  handle() {
+  reply() {
     return null;
   }
 };

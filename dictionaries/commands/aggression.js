@@ -1,6 +1,6 @@
-const { getUsers, getRandom } = require('../../helpers');
+const ReplyList = require('../../classes/controllers/ReplyList');
 
-const dictionary = [
+const list = new ReplyList([
   (id) => `*Нассал <@${id}> в тапки*`,
   (id) => `*Наводит на <@${id}> порчу*`,
   (id) => `*Грызет ботинок <@${id}>*`,
@@ -15,18 +15,14 @@ const dictionary = [
   (id) => `*Чешется над тарелкой <@${id}>*`,
   (id) => `*Двусмысленно угрожает щупальцами <@${id}>*`,
   (id) => `*Громко мяучит на ухо <@${id}>*`,
-];
+]);
 
 module.exports = (data) => {
-  if (data.args.length !== 1) {
-    throw new Error();
-  }
+  if (!data.users.length) throw new Error();
 
-  let target = getUsers(data.args[0])[0];
-  if (target === '348195205943656459' || target === '491192557167050752') {
-    target = data.author;
-  }
+  const taboo = ['348195205943656459', '491192557167050752'];
 
-  const say = dictionary[getRandom(0, dictionary.length - 1)];
-  return say(target);
+  return data.users
+    .map((user) => list.reply(taboo.includes(user) ? data.author : user))
+    .join('\n');
 };
