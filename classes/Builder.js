@@ -13,7 +13,15 @@ module.exports = class {
       res += ` ${cur}`;
     } while (cur !== '#конец');
 
-    return res.replace(/ #конец/g, '.');
+    return res.replace(/#конец/g, '');
+  }
+
+  song(n = 4) {
+    let song = '';
+    for (let i = 0; i < n && i < 20; i += 1) {
+      song += `${this.build()}\n`;
+    }
+    return song;
   }
 
   getItem(prev) {

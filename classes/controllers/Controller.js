@@ -18,17 +18,16 @@ module.exports = class {
   }
 
   parse() {
-    const str = this.message.content
+    const original = this.message.content
       .replace('?', '')
       .toLowerCase();
 
-    const userLinks = str.match(/<@!?\d+>/g) || [];
+    const userLinks = original.match(/<@!?\d+>/g) || [];
     const users = userLinks.map((item) => item.replace(/<|>|@|!/g, ''));
-    const words = str.replace(/<@!?\d+>/g).match(/[а-яё0-9]+/g);
-
-    console.log(users);
+    const words = original.replace(/<@!?\d+>/g, '').match(/[а-яё0-9]+/g);
 
     this.data = {
+      original,
       users,
       words,
       author: this.message.author.id,

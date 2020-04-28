@@ -13,7 +13,7 @@ const dictionary = [
 */
 
 module.exports = (data) => {
-  const dice = +data.args[0];
+  const dice = +data.words[0];
   if (!Number.isInteger(dice) || dice < 0 || dice > 1000) {
     throw new Error(`Выход за пределы допустимых значений: ${dice}`);
   }

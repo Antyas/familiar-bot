@@ -18,6 +18,7 @@ module.exports = {
     'no-console': 'off',
     'consistent-return': 'off',
     'global-require': 'off',
-    'class-methods-use-this': 'off'
+    'class-methods-use-this': 'off',
+    'import/no-dynamic-require': 'off',
   },
 };

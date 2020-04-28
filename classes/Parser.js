@@ -1,13 +1,24 @@
+const fs = require('fs');
+const { join } = require('path');
+
 module.exports = class {
-  constructor(textList) {
-    this.corpusList = textList.flatMap(this.getCorpus);
+  constructor(dir) {
+    this.corpusList = this.read(dir).flatMap(this.getCorpus);
     this.dict = new Map();
     this.fill();
+  }
+
+  read(dir) {
+    return fs
+      .readdirSync(dir, 'utf8')
+      .filter((file) => file.includes('.txt'))
+      .map((file) => fs.readFileSync(join(dir, file), 'utf8'));
   }
 
   getCorpus(text) {
     return text
       .replace(/\.+|;|!|\?|\n/g, '#делитель')
+      .replace(/\[.+\]/g, ' ')
       .split(/#делитель/g)
       .map((t) => t.trim())
       .filter((t) => t && t !== '.');
@@ -39,7 +50,7 @@ module.exports = class {
   }
 
   parse(str) {
-    return `#старт ${str} #конец`.match(/[#а-яА-ЯёЁ—-]+/g);
+    return `#старт ${str} #конец`.match(/[#а-яА-ЯёЁ—\-0-9]+/g);
   }
 
   getDict() {
