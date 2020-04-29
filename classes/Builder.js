@@ -24,6 +24,14 @@ module.exports = class {
     return song;
   }
 
+  story(n = 1) {
+    let story = '';
+    for (let i = 0; i < n && i < 20; i += 1) {
+      story += `${this.build()}. `;
+    }
+    return story;
+  }
+
   getItem(prev) {
     const link = this.dict.get(prev);
     const roll = getRandom(1, link.max);
