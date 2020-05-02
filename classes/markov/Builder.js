@@ -1,4 +1,4 @@
-const { getRandom } = require('../helpers');
+const { getRandom } = require('../../helpers');
 
 module.exports = class {
   constructor(dict) {
