@@ -5,4 +5,5 @@ module.exports = new Map([
   ['голос', require('./voice')],
   ['гладить', require('./caress')],
   ['песня', require('./song')],
+  ['самосбор', require('./samosbor')],
 ]);

@@ -6,30 +6,31 @@ module.exports = class {
   }
 
   build() {
-    let cur = '#старт';
+    let cur = '#start';
     let res = '';
     do {
       cur = this.getItem(cur);
       res += ` ${cur}`;
-    } while (cur !== '#конец');
-
-    return res.replace(/#конец/g, '');
+    } while (cur !== '#end');
+    return res.replace(/#end/g, '');
   }
 
-  song(n = 4) {
+  song(number) {
+    const n = number || getRandom(1, 15);
     let song = '';
     for (let i = 0; i < n && i < 20; i += 1) {
-      song += `${this.build()}\n`;
+      song += `${this.build().toLowerCase()}\n`;
     }
     return song;
   }
 
-  story(n = 1) {
-    let story = '';
-    for (let i = 0; i < n && i < 20; i += 1) {
-      story += `${this.build()}. `;
+  samosbor(number) {
+    const n = number || getRandom(1, 15);
+    const list = [];
+    for (let i = 0; i < n && i < 15; i += 1) {
+      list.push(this.build().toUpperCase());
     }
-    return story;
+    return list.join('\n@\n');
   }
 
   getItem(prev) {

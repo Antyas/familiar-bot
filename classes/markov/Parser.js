@@ -2,8 +2,17 @@ const fs = require('fs');
 const { join } = require('path');
 
 module.exports = class {
-  constructor(dir) {
-    this.corpusList = this.read(dir).flatMap(this.getCorpus);
+  constructor(dir, saveLog = false, r = {}) {
+    this.saveLog = saveLog;
+    this.dir = dir;
+    this.r = {
+      separator: r.separator || /\.+|;|!|\?|\n/g,
+      delete: r.delete || /^[#а-яА-ЯёЁa-zA-Z—\-0-9]+/g,
+      words: r.words || /[#а-яА-ЯёЁa-zA-Z—\-0-9]+/g,
+      filter: r.filter || ['.', ''],
+    };
+
+    this.setCorpusList();
     this.dict = new Map();
     this.fill();
   }
@@ -12,16 +21,24 @@ module.exports = class {
     return fs
       .readdirSync(dir, 'utf8')
       .filter((file) => file.includes('.txt'))
-      .map((file) => fs.readFileSync(join(dir, file), 'utf8'));
+      .map((file) => ({
+        name: file,
+        text: fs.readFileSync(join(dir, file), 'utf8'),
+      }));
   }
 
-  getCorpus(text) {
-    return text
-      .replace(/\.+|;|!|\?|\n/g, '#делитель')
-      .replace(/\[.+\]/g, ' ')
-      .split(/#делитель/g)
-      .map((t) => t.trim())
-      .filter((t) => t && t !== '.');
+  setCorpusList() {
+    this.corpusList = this.read(this.dir).flatMap((data) => {
+      const list = data.text
+        .replace(this.r.separator, '#sep')
+        .replace(this.r.delete, ' ')
+        .split(/#sep/g)
+        .map((t) => t.trim())
+        .filter((t) => !this.r.filter.includes(t));
+
+      if (this.saveLog) this.writeLog(data.name, list);
+      return list;
+    });
   }
 
   fill() {
@@ -50,7 +67,13 @@ module.exports = class {
   }
 
   parse(str) {
-    return `#старт ${str} #конец`.match(/[#а-яА-ЯёЁ—\-0-9]+/g);
+    return `#start ${str} #end`.match(this.r.words);
+  }
+
+  writeLog(fileName, list) {
+    const path = join(process.cwd(), 'logs', fileName.replace(/\..+/, '.json'));
+    const log = JSON.stringify(list, null, 2);
+    fs.writeFileSync(path, log);
   }
 
   getDict() {
