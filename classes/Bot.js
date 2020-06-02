@@ -13,7 +13,7 @@ module.exports = class extends Discord.Client {
     this.on('ready', () => console.log('Бот запущен'));
 
     this.on('message', (m) => {
-      if (m.author.bot) return;
+      if (m.author.bot || m.content === '?') return;
       // || m.author.id !== '348195205943656459' || m.channel.type !== 'dm'
 
 
@@ -24,7 +24,7 @@ module.exports = class extends Discord.Client {
         controller.reply();
       } catch (e) {
         m.channel
-          .send('Упал...')
+          .send('Мне плохо >.<')
           .then(() => { throw e; });
       }
     });
