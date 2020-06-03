@@ -30,6 +30,6 @@ module.exports = class extends Controller {
 
   reply() {
     const answer = this.isMeow() || this.isCall() || this.isRandom();
-    this.message.channel.send(answer);
+    if (answer) this.message.channel.send(answer);
   }
 };

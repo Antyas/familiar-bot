@@ -11,7 +11,7 @@ const list = new ReplyList([
 ]);
 
 module.exports = (data) => {
-  const taboo = ['491192557167050752'];
+  const taboo = [process.env.BOT_ID];
 
   return data.users
     .map((user) => list.reply(taboo.includes(user) ? data.author : user))
