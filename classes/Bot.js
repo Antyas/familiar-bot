@@ -8,25 +8,28 @@ module.exports = class extends Discord.Client {
     this.botToken = botToken;
   }
 
+  onMessage(m) {
+    // режим тестирования
+    // if (m.author.id !== process.env.BOT_FATHER_ID || m.channel.type !== 'dm') return;
+
+    if (m.author.bot || m.content === '?') return;
+
+    try {
+      const controller = m.content.trim().startsWith('?')
+        ? new CommandsController(m)
+        : new TalkController(m);
+
+      controller.reply();
+    } catch (e) {
+      m.channel
+        .send('Мне плохо >.<')
+        .then(() => console.log(e));
+    }
+  }
+
   start() {
     this.login(this.botToken);
     this.on('ready', () => console.log('Бот запущен'));
-
-    this.on('message', (m) => {
-      if (m.author.bot || m.content === '?') return;
-      // || m.author.id !== '348195205943656459' || m.channel.type !== 'dm'
-
-
-      try {
-        const controller = m.content.trim().startsWith('?')
-          ? new CommandsController(m)
-          : new TalkController(m);
-        controller.reply();
-      } catch (e) {
-        m.channel
-          .send('Мне плохо >.<')
-          .then(() => { throw e; });
-      }
-    });
+    this.on('message', this.onMessage);
   }
 };

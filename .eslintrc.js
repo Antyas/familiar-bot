@@ -1,4 +1,5 @@
 module.exports = {
+  parser: "babel-eslint",
   env: {
     commonjs: true,
     es6: true,
@@ -20,5 +21,6 @@ module.exports = {
     'global-require': 'off',
     'class-methods-use-this': 'off',
     'import/no-dynamic-require': 'off',
+    'no-param-reassign': 'off',
   },
 };

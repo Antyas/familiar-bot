@@ -18,9 +18,9 @@ const list = new ReplyList([
 ]);
 
 module.exports = (data) => {
-  if (!data.users.length) throw new Error();
+  if (!data.users.length) throw new Error('Нет цели для агрессии');
 
-  const taboo = ['348195205943656459', '491192557167050752'];
+  const taboo = [process.env.BOT_ID, process.env.BOT_FATHER_ID];
 
   return data.users
     .map((user) => list.reply(taboo.includes(user) ? data.author : user))
