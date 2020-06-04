@@ -12,9 +12,15 @@ module.exports = class {
       filter: r.filter || ['.', ''],
     };
 
+    this.info = {
+      strings: 0,
+      words: 0,
+    };
+
     this.setCorpusList();
     this.dict = new Map();
     this.fill();
+    this.info.words = this.dict.size;
   }
 
   read(dir) {
@@ -36,6 +42,7 @@ module.exports = class {
         .map((t) => t.trim())
         .filter((t) => !this.r.filter.includes(t));
 
+      this.info.strings += list.length;
       if (this.saveLog) this.writeLog(data.name, list);
       return list;
     });
@@ -78,5 +85,9 @@ module.exports = class {
 
   getDict() {
     return this.dict;
+  }
+
+  getInfo() {
+    return `Для обучения использованно строк: ${this.info.strings}\nСлов в словаре: ${this.info.words}`;
   }
 };

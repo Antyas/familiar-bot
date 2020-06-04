@@ -10,7 +10,7 @@ module.exports = class {
     let res = '';
     do {
       cur = this.getItem(cur);
-      res += ` ${cur}`;
+      res += `${cur} `;
     } while (cur !== '#end');
     return res.replace(/#end/g, '');
   }
