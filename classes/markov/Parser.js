@@ -39,7 +39,7 @@ module.exports = class {
         .replace(this.r.separator, '#sep')
         .replace(this.r.delete, ' ')
         .split(/#sep/g)
-        .map((t) => t.trim())
+        .map((t) => t.trim().toLowerCase())
         .filter((t) => !this.r.filter.includes(t));
 
       this.info.strings += list.length;

@@ -5,14 +5,13 @@ module.exports = class {
     this.dict = dict;
   }
 
-  build() {
-    let cur = '#start';
-    let res = '';
+  build(cur = '#start') {
+    let res = `${cur} `;
     do {
       cur = this.getItem(cur);
       res += `${cur} `;
     } while (cur !== '#end');
-    return res.replace(/#end/g, '');
+    return res.replace(/#end|#start/g, '');
   }
 
   song(number) {
@@ -31,6 +30,11 @@ module.exports = class {
       list.push(this.build().toUpperCase());
     }
     return list.join('\n@\n');
+  }
+
+  sentence(word = '#start') {
+    if (!this.dict.has(word)) return '';
+    return this.build(word).toLowerCase();
   }
 
   getItem(prev) {
