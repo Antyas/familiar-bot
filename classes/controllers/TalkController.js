@@ -20,7 +20,7 @@ module.exports = class extends Controller {
 
   isCall() {
     if (this.data.users?.includes(process.env.BOT_ID)) {
-      if (this.data.original.includes('расскажи про')) {
+      if (this.data.original.includes('расскажи')) {
         const answer = `<@${this.data.author}>, ${this.getSentence(this.data.words.pop())}`;
         if (!answer) return `<@${this.data.author}>, Не знаю про это ничего`;
         return answer;

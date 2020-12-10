@@ -1,6 +1,6 @@
-const ReplyList = require('../../classes/controllers/ReplyList');
+import Phrases from '../../core/phrases.js'
 
-const list = new ReplyList([
+const phrases = new Phrases([
   (id) => `*Нассал <@${id}> в тапки*`,
   (id) => `*Наводит на <@${id}> порчу*`,
   (id) => `*Грызет ботинок <@${id}>*`,
@@ -17,7 +17,7 @@ const list = new ReplyList([
   (id) => `*Громко мяучит на ухо <@${id}>*`,
 ]);
 
-module.exports = (data) => {
+export default (data) => {
   if (!data.users.length) throw new Error('Нет цели для агрессии');
 
   const taboo = [process.env.BOT_ID, process.env.BOT_FATHER_ID];

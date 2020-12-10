@@ -1,8 +1,16 @@
 console.time('start');
-require('dotenv').config();
-const Bot = require('./classes/Bot');
+import Bot from './core/bot.js';
+import controller from './main/controller.js';
 
-const bot = new Bot(process.env.BOT_TOKEN);
+const config = {
+  prefix: '+',
+  controller,
+};
+
+const bot = new Bot(config);
 bot.start();
 
 console.timeEnd('start');
+
+
+
